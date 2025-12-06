@@ -3,6 +3,7 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
 import session from 'express-session';
+import fetch from 'node-fetch';
 
 const app = express();
 
@@ -27,19 +28,40 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     waitForConnections: true
 });
-//routes
-app.get('/', (req, res) => {
-    res.send('Hello Express app!')
+
+
+
+app.get('/apiTest', (req, res) => {
+    res.render('apiTest.ejs');
 });
-app.get("/dbTest", async (req, res) => {
-    try {
-        const [rows] = await pool.query("SELECT CURDATE()");
-        res.send(rows);
-    } catch (err) {
-        console.error("Database error:", err);
-        res.status(500).send("Database error!");
+
+app.get('/search-test', async (req, res) => {
+    const key = process.env.DISCOGS_CONSUMER_KEY;
+    const secret = process.env.DISCOGS_CONSUMER_SECRET;
+    const songName = req.query.songName;
+    const artistName = req.query.artistName;
+
+    let response = await fetch(`https://api.discogs.com/database/search?track=${songName}&artist=${artistName}&type=release`, {
+        headers: {
+            'Authorization': `Discogs key=${key}, secret=${secret}`,
+            'User-Agent': 'Final336v2/1.0'
+        }
+    });
+
+    let data = await response.json();
+
+    let uniqueResults = [];
+    let seenTitles = [];
+
+    for (let result of data.results) {
+        if (!seenTitles.includes(result.title)) {
+            seenTitles.push(result.title);
+            uniqueResults.push(result);
+        }
     }
-});//dbTest
+    res.render('results', { data: uniqueResults });
+})
+
 app.listen(3000, () => {
     console.log("Express server running")
 })
