@@ -29,7 +29,7 @@ const pool = mysql.createPool({
 });
 //routes
 app.get('/', (req, res) => {
-    res.send('Hello Express app!')
+    res.render('home.ejs')
 });
 
 app.get('/loginTest', isUserAuthenticated, (req, res) => {
@@ -44,7 +44,7 @@ app.get('/login', async (req, res) => {
 app.post('/login', async (req, res) => {
     let username = req.body.username
     let password = req.body.password
-    
+
     let hashedPassword = ""
     let sql = `SELECT *
                FROM login
@@ -65,6 +65,28 @@ app.post('/login', async (req, res) => {
     }
 })
 
+app.get('/register', async (req, res) => {
+    res.render('register.ejs')
+})
+
+app.post('/register', async (req, res) => {
+    let username = req.body.username
+    let password = req.body.password
+    let passwordCheck = req.body.passwordCheck
+
+    console.log(username + "  " + password + "  " + passwordCheck)
+
+    if (password == passwordCheck) {
+        let sql = `INSERT INTO login
+                   (username, password)
+                   VALUES (?, ?)`
+        let sqlParams = [username, password]
+        const [rows] = await pool.query(sql, sqlParams)
+    }
+    res.render('register.ejs')
+})
+
+// middleware to check authentication
 function isUserAuthenticated(req, res, next) {
     if (req.session.isUserAuthenticated) {
         next()
