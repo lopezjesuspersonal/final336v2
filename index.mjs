@@ -70,7 +70,7 @@ app.get('/', (req, res) => {
 
 app.get('/loginTest', isUserAuthenticated, (req, res) => {
     let name = req.session.name
-    res.render('loginTest.ejs', {name})
+    res.render('loginTest.ejs', { name })
 })
 
 app.get('/login', async (req, res) => {
@@ -80,7 +80,7 @@ app.get('/login', async (req, res) => {
 app.post('/login', async (req, res) => {
     let username = req.body.username
     let password = req.body.password
-    
+
     let hashedPassword = ""
     let sql = `SELECT *
                FROM login
@@ -108,6 +108,16 @@ function isUserAuthenticated(req, res, next) {
         res.redirect('/login')
     }
 }
+
+app.get('/youtube-search', async (req, res) => {
+    const query = req.query.q;
+    const key = process.env.YOUTUBE_API_KEY;
+
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=1&type=video&key=${key}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    res.json({ videoId: data.items[0].id.videoId });
+});
 
 app.get("/dbTest", async (req, res) => {
     try {
