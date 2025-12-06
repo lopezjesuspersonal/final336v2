@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+        <title>Login</title>
+</head>
+<body class="text-center loginBody">
+    <div class="login-box">
+        <form method="POST" action="/login">
+            <h1 class="m-3"> Log in to Vynl </h1>
+            Username:
+            <div class="loginDiv mb-4">
+                <input type="text" name="username">
+                <span class="bi bi-person loginIcon"></span>
+            </div>
+            Password:
+            <div class="loginDiv mb-4">
+                <input type="password" id="pwd" name="password">
+                <span class="bi bi-eye loginIcon" id="eyeIcon"></span>
+            </div>
+            <button type="submit" class="btn btn-custom mb-3">Log in</button>
+        </form>
+        <form action="GET">
+            <button type="button" class="btn btn-outline-primary btn-outline-custom">Sign up</button>
+        </form>
+    </div>
+    <% if (typeof(loginError) !="undefined" ) { %>
+        <h3 class="text-danger">
+            <%=loginError%>
+        </h3>
+        <% } %>
+            <script>
+                const eyeIcon = document.querySelector("#eyeIcon");;
+                eyeIcon.addEventListener("click", () => {
+                    const isHidden = pwd.type === "password";
+                    pwd.type = (isHidden) ? "text" : "password";
+                    eyeIcon.classList.toggle("bi-eye", !isHidden);
+                    eyeIcon.classList.toggle("bi-eye-slash", isHidden);
+                });
+            </script>
+</body>
+
+</html>
