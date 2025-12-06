@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import express from 'express';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcrypt';
@@ -8,7 +9,7 @@ const app = express();
 // session config
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
-    secret: 'cst336',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     // cookie: { secure: true } //only works in web servers
@@ -19,10 +20,10 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 //setting up database connection pool
 const pool = mysql.createPool({
-    host: "env",
-    user: "env",
-    password: "env",
-    database: "env",
+    host: process.env.HOST,
+    user: process.env.USER_DB,
+    password: process.env.PASSWORD_DB,
+    database: process.env.DATABASE,
     connectionLimit: 10,
     waitForConnections: true
 });
