@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <title>Register</title>
+</head>
+<body class="text-center loginBody">
+    <div class="login-box">
+        <form method="POST" action="/register">
+            <h1 class="m-3"> Log in to Vynl </h1>
+            Username:
+            <div class="loginDiv mb-4">
+                <input type="text" name="username">
+                <span class="bi bi-person loginIcon"></span>
+            </div>
+            Password:
+            <div class="loginDiv mb-4">
+                <input type="password" id="pwd" name="password">
+                <span class="bi bi-eye loginIcon" id="eyeIcon"></span>
+            </div>
+            Retype Password:
+            <div class="loginDiv mb-4">
+                <input type="password" id="pwd" name="passwordCheck">
+                <span class="bi bi-eye loginIcon" id="eyeIcon"></span>
+            </div>
+            <button type="submit" class="btn btn-custom mb-3">Register</button>
+        </form>
+        <form method="GET" action="/login">
+            <button type="submit" class="btn btn-outline-primary btn-outline-custom">Return to Sign In</button>
+        </form>
+    </div>
+</body>
+</html>
