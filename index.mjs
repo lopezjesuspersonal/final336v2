@@ -65,7 +65,7 @@ app.get('/search-test', async (req, res) => {
 
 //routes
 app.get('/', (req, res) => {
-    res.send('Hello Express app!')
+    res.render('home.ejs')
 });
 
 app.get('/loginTest', isUserAuthenticated, (req, res) => {
