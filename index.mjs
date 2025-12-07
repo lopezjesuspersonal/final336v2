@@ -32,7 +32,7 @@ const pool = mysql.createPool({
 
 
 
-app.get('/apiTest', (req, res) => {
+app.get('/apiTest', isUserAuthenticated, (req, res) => {
     res.render('apiTest.ejs');
 });
 
@@ -102,6 +102,18 @@ app.post('/login', async (req, res) => {
     }
 })
 
+
+app.post('/add-favorite', isUserAuthenticated, async (req, res) => {
+    let { songName, artistName } = req.body;
+    let userId = req.session.userId;
+
+    let sql = `INSERT INTO songs (userId, songName, artistName, isFavorite) 
+               VALUES (?, ?, ?, 1)`;
+    await pool.query(sql, [userId, songName, artistName]);
+    res.render('results.ejs');
+
+});
+
 app.get('/register', async (req, res) => {
     res.render('register.ejs')
 })
@@ -136,9 +148,9 @@ app.get('/youtube-search', async (req, res) => {
     const query = req.query.q;
     const key = process.env.YOUTUBE_API_KEY;
 
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&maxResults=1&type=video&key=${key}`;
-    const resp = await fetch(url);
-    const data = await resp.json();
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&maxResults=1&type=video&key=${key}`;
+    let response = await fetch(url);
+    let data = await response.json();
     res.json({ videoId: data.items[0].id.videoId });
 });
 

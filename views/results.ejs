@@ -20,6 +20,17 @@
                 <p>Year: <%= item.year %>
                 </p>
                 <button onclick="playSong('<%= item.title %>')">Play on YouTube</button>
+
+                <% let parts=item.title.split(' - ');
+                    let artist = parts.length > 1 ? parts[0] : ' Unknown'; let song=parts.length> 1 ?
+                    parts.slice(1).join(' - ') : item.title;
+                    %>
+
+                    <form action="/add-favorite" method="POST" style="margin-top: 10px;">
+                        <input type="hidden" name="songName" value="<%= song %>">
+                        <input type="hidden" name="artistName" value="<%= artist %>">
+                        <button type="submit">❤️</button>
+                    </form>
             </div>
             <% }); %>
     </div>
