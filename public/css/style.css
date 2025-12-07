@@ -5,19 +5,110 @@ body {
     color: white;
 }
 
+#searchBody {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#searchDiv {
+    background: linear-gradient(red, black);
+    padding: 40px 30px;
+    padding-top: 20px;
+    width: 380px;
+    height: 350px;
+    border-radius: 25px;
+    box-shadow: 0 5px 25px white;
+    color: white;
+    text-align: center;
+    text-shadow: 3px 3px 3px black;
+}
+
+.searchDivItem {
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.searchDivItem input {
+    width: 100%;
+    padding: 10px 35px 10px 10px;
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+    box-shadow: 4px 4px 4px black;
+}
+
+.searchDivItem button {
+    background-image: linear-gradient(270deg, black, red);
+    color: white;
+    width: 100%;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: bold;
+    box-shadow: 4px 4px 4px black;
+}
+
+.searchDivItem button:hover {
+    color: red;
+    text-shadow: 2px 2px 2px black;
+}
+
+.searchDivItem button:active {
+    background-image: linear-gradient(90deg, black, red);
+    box-shadow: 2px 2px 2px black;
+    text-shadow: 3px 3px 3px black;
+}
+
+#navPartial {
+    color: black;
+    border-bottom: black solid 5px;
+    padding-bottom: 10px;
+}
+
+.navItem {
+    color: white;
+    background-image: linear-gradient(black, red);
+    font-size: x-large;
+    padding: 15;
+    margin: 0 10px;
+    border: black solid 1px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 3px 3px 3px black;
+}
+
+.navButton :hover {
+    color: red;
+}
+
+.navButton :active {
+    text-shadow: 3px 3px 3px black;
+    box-shadow: 1px 1px 1px black;
+}
+
 #title {
     text-align: center;
-    font-size: 6em;
-    color: transparent;
-    background-image: linear-gradient(red, black);
-    background-clip: text;
-    font-weight: bolder;
+    font-size: 6.5em;
+    color: black;
+    /* background-image: linear-gradient(rgb(0, 0, 0), rgb(64, 0, 0));
+    background-clip: text; */
+    font-weight: 850;
     font-style: italic;
     border-bottom: black solid 5px;
+    margin: 10;
+    text-shadow: 2px 2px 2px white;
 }
 
 #bar {
     background-color: black;
+}
+
+.loginText {
+    font-weight: bold;
+    text-shadow: 2px 2px 2px black;
+    color: red;
 }
 
 .loginBody {
@@ -27,7 +118,6 @@ body {
     justify-content: center;
     align-items: center;
     font-family: Arial, sans-serif;
-    color: white;
 }
 
 .login-box {
@@ -35,7 +125,7 @@ body {
     padding: 40px;
     width: 380px;
     border-radius: 18px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px red;
     color: black;
 }
 
@@ -47,8 +137,14 @@ body {
 .loginDiv input {
     width: 100%;
     padding: 10px 35px 10px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid gray;
     border-radius: 8px;
+    background-color: lightgray;
+    box-shadow: 3px 3px 3px gray;
+}
+
+.loginDiv input:focus {
+    box-shadow: 1px 1px 1px gray;
 }
 
 .loginIcon {
@@ -66,14 +162,17 @@ body {
     width: 100%;
     border-radius: 8px;
     padding: 10px;
+    box-shadow: 3px 3px 3px gray;
 }
 
 .btn-custom:hover {
     background: #5e5e5e;
+    box-shadow: 3px 3px 3px black;
 }
 
 .btn-outline-custom {
     width: 100%;
     border-radius: 8px;
     padding: 10px;
+    box-shadow: 2px 2px 2px gray;
 }

@@ -74,6 +74,11 @@ app.get('/loginTest', isUserAuthenticated, (req, res) => {
     res.render('loginTest.ejs', { name })
 })
 
+app.get('/logout', (req, res) => {
+    req.session.destroy()
+    res.redirect('/login')
+})
+
 app.get('/login', async (req, res) => {
     res.render('login.ejs')
 })
@@ -82,18 +87,20 @@ app.post('/login', async (req, res) => {
     let username = req.body.username
     let password = req.body.password
 
-    let hashedPassword = ""
+    // let hashedPassword = ""
     let sql = `SELECT *
                FROM login
                WHERE username = ?`
     const [rows] = await pool.query(sql, [username])
 
-    // if (rows.length > 0) {
-    //     hashedPassword = rows[0].password
-    // }
+    let found = false
+    if (rows.length > 0) {
+        // hashedPassword = rows[0].password
+        found = true
+    }
 
     // const match = await bcrypt.compare(password, hashedPassword)
-    if (rows[0].password == password) {
+    if (found && rows[0].password == password) {
         req.session.isUserAuthenticated = true
         req.session.name = rows[0].username
         res.redirect('/')
