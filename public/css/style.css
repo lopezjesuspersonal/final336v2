@@ -5,15 +5,44 @@ body {
     color: white;
 }
 
+#navPartial {
+    color: black;
+    border-bottom: black solid 5px;
+    padding-bottom: 10px;
+}
+
+.navItem {
+    color: white;
+    background-image: linear-gradient(black, red);
+    font-size: x-large;
+    padding: 15;
+    margin: 0 10px;
+    border: black solid 1px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 3px 3px 3px black;
+}
+
+.navButton :hover {
+    color: red;
+}
+
+.navButton :active {
+    text-shadow: 3px 3px 3px black;
+    box-shadow: 1px 1px 1px black;
+}
+
 #title {
     text-align: center;
-    font-size: 6em;
-    color: transparent;
-    background-image: linear-gradient(red, black);
-    background-clip: text;
-    font-weight: bolder;
+    font-size: 6.5em;
+    color: black;
+    /* background-image: linear-gradient(rgb(0, 0, 0), rgb(64, 0, 0));
+    background-clip: text; */
+    font-weight: 850;
     font-style: italic;
     border-bottom: black solid 5px;
+    margin: 10;
+    text-shadow: 2px 2px 2px white;
 }
 
 #bar {
