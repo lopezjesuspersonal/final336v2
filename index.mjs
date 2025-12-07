@@ -64,8 +64,9 @@ app.get('/search-test', async (req, res) => {
 })
 
 //routes
-app.get('/', (req, res) => {
-    res.render('home.ejs')
+app.get('/', isUserAuthenticated, (req, res) => {
+    let name = req.session.name
+    res.render('home.ejs', { name })
 });
 
 app.get('/loginTest', isUserAuthenticated, (req, res) => {
@@ -95,8 +96,7 @@ app.post('/login', async (req, res) => {
     if (rows[0].password == password) {
         req.session.isUserAuthenticated = true
         req.session.name = rows[0].username
-        req.session.userId = rows[0].userId
-        res.redirect('/loginTest')
+        res.redirect('/')
     } else {
         res.redirect('/login')
     }
@@ -114,6 +114,28 @@ app.post('/add-favorite', isUserAuthenticated, async (req, res) => {
 
 });
 
+app.get('/register', async (req, res) => {
+    res.render('register.ejs')
+})
+
+app.post('/register', async (req, res) => {
+    let username = req.body.username
+    let password = req.body.password
+    let passwordCheck = req.body.passwordCheck
+
+    console.log(username + "  " + password + "  " + passwordCheck)
+
+    if (password == passwordCheck) {
+        let sql = `INSERT INTO login
+                   (username, password)
+                   VALUES (?, ?)`
+        let sqlParams = [username, password]
+        const [rows] = await pool.query(sql, sqlParams)
+    }
+    res.render('register.ejs')
+})
+
+// middleware to check authentication
 function isUserAuthenticated(req, res, next) {
     if (req.session.isUserAuthenticated) {
         next()
