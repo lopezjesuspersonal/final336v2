@@ -101,6 +101,58 @@ body {
     text-shadow: 2px 2px 2px white;
 }
 
+#userBox {
+    display: flex;                 
+    align-items: center;           
+    justify-content: center;       
+    gap: 15px;                     
+    margin-top: 10px;              
+}
+
+#userBox img {
+    width: 230px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.homeDiv{
+    text-align: center;
+    font-size: 2.0em;
+    color: black;
+    font-weight: 850;
+    font-style: italic;
+    margin: 10;
+    text-shadow: 1px 1px 1px rgb(243, 128, 128);
+}
+
+#welcomeUser {
+    text-align: center;
+    font-size: 3.0em;
+    color: black;
+    font-weight: 850;
+    font-style: italic;
+    margin: 10;
+    text-shadow: 2px 2px 2px white;
+    border-bottom: 3px solid rgb(0, 0, 0);
+}
+
+.homeBtn{
+    color: white;
+    background-image: linear-gradient(black, red);
+    font-size: x-large;
+    padding: 15;
+    margin: 0 10px;
+    border: black solid 1px;
+    border-radius: 25px;
+    background-color: white;
+    box-shadow: 3px 3px 3px black;    
+}
+
+.homeBtn:Hover {
+    color: red;
+    text-shadow: 2px 2px 2px black;
+}
+
 #bar {
     background-color: black;
 }
@@ -175,4 +227,16 @@ body {
     border-radius: 8px;
     padding: 10px;
     box-shadow: 2px 2px 2px gray;
+}
+
+#footer {
+    color: black;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-family: verdana;
+    margin: 0;
 }
