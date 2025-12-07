@@ -64,8 +64,9 @@ app.get('/search-test', async (req, res) => {
 })
 
 //routes
-app.get('/', (req, res) => {
-    res.render('home.ejs')
+app.get('/', isUserAuthenticated, (req, res) => {
+    let name = req.session.name
+    res.render('home.ejs', { name })
 });
 
 app.get('/loginTest', isUserAuthenticated, (req, res) => {
@@ -95,7 +96,7 @@ app.post('/login', async (req, res) => {
     if (rows[0].password == password) {
         req.session.isUserAuthenticated = true
         req.session.name = rows[0].username
-        res.redirect('/loginTest')
+        res.redirect('/')
     } else {
         res.redirect('/login')
     }

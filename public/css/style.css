@@ -1,3 +1,25 @@
+body {
+    background: linear-gradient(270deg, red, black);
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#title {
+    text-align: center;
+    font-size: 6em;
+    color: transparent;
+    background-image: linear-gradient(red, black);
+    background-clip: text;
+    font-weight: bolder;
+    font-style: italic;
+    border-bottom: black solid 5px;
+}
+
+#bar {
+    background-color: black;
+}
+
 .loginBody {
     background: linear-gradient(135deg, #000000, #6e6e6e);
     height: 100vh;
