@@ -3,18 +3,31 @@
 
 <head>
     <%- include("partials/head.ejs") %>
-    <title>Document</title>
+        <title>Document</title>
 </head>
 
 <body>
-    <h1>API Test</h1>
-    <p>Search for a release</p>
+    <h1 id="title"> VYNL </h1>
+    <%- include("partials/testnav.ejs") %>
 
-    <form action="/search-test" method="get">
-        <input type="text" name="songName" placeholder="Song Name...">
-        <input type="text" name="artistName" placeholder="Artist Name...">
-        <button type="submit">Search</button>
-    </form>
+        <div id="searchBody">
+            <div id="searchDiv">
+                <h2 class="searchDivItem">Search for a release</h2>
+
+                <form action="/search-test" method="get">
+                    <div class="searchDivItem">
+                        <input class="searchInput" type="text" name="songName" placeholder="Song Name..."> <br>
+                    </div>
+                    <div class="searchDivItem">
+                        <input class="searchInput" type="text" name="artistName" placeholder="Artist Name..."> <br>
+                    </div>
+                    <div class="searchDivItem">
+                        <button class="searchButton" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 </body>
 
 </html>
