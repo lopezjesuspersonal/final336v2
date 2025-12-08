@@ -30,7 +30,15 @@ const pool = mysql.createPool({
     waitForConnections: true
 });
 
-
+app.get('/profile', isUserAuthenticated, async (req, res) => {
+    let username = req.session.username
+    let sql = `SELECT * 
+               FROM login
+               WHERE username = ?`
+    const [userInfo] = await pool.query(sql, [username])
+    
+    res.render('profile.ejs', { userInfo })
+})
 
 app.get('/apiTest', isUserAuthenticated, (req, res) => {
     res.render('apiTest.ejs');
@@ -65,12 +73,12 @@ app.get('/search-test', async (req, res) => {
 
 //routes
 app.get('/', isUserAuthenticated, (req, res) => {
-    let name = req.session.name
+    let name = req.session.username
     res.render('home.ejs', { name })
 });
 
 app.get('/loginTest', isUserAuthenticated, (req, res) => {
-    let name = req.session.name
+    let name = req.session.username
     res.render('loginTest.ejs', { name })
 })
 
@@ -102,7 +110,7 @@ app.post('/login', async (req, res) => {
     // const match = await bcrypt.compare(password, hashedPassword)
     if (found && rows[0].password == password) {
         req.session.isUserAuthenticated = true
-        req.session.name = rows[0].username
+        req.session.username = rows[0].username
         res.redirect('/')
     } else {
         res.redirect('/login')

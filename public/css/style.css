@@ -5,6 +5,20 @@ body {
     color: white;
 }
 
+.homeButtons {
+    text-decoration: none;
+    color: white;
+}
+
+.homeButtons:hover {
+    color: red;
+    text-shadow: 2px 2px 2px black;
+}
+
+.homeButtons:active {
+    text-shadow: 4px 4px 4px black;
+}
+
 #searchBody {
     margin-top: 50px;
     display: flex;

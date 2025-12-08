@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("partials/head.ejs") %>
+    <title>Profile</title>
+</head>
+<body>
+    <h1 id="title"> VYNL </h1> <!-- Title -->
+    <%- include("partials/testnav.ejs") %>
+    <h2>Welcome <%= userInfo[0].username %></h2>
+
+    <dialog id="profileModal">
+        <h2>Modal</h2>
+        <p>content</p>
+        <button id="closeProfileModal">Close</button>
+    </dialog>
+
+    <form action="/updateUserInfo">
+        <button>Update Profile</button>
+    </form>
+</body>
+</html>

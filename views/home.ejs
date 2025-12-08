@@ -8,31 +8,31 @@
 
     <h1 id="title"> VYNL </h1> <!-- Title -->
     <%- include("partials/testnav.ejs") %>
-    <br>
-    <div id="userBox"> <!-- Welcome User Box --> <!-- Gifs from Tenor -->
-    <img src="https://media.tenor.com/43WINHsZ4jQAAAAi/ayo-menyanyi.gif" alt="music gif">
-    <p id="welcomeUser">Welcome <%= name %>!</p>
-    <img src="https://media.tenor.com/43WINHsZ4jQAAAAi/ayo-menyanyi.gif" alt="music gif">
-    </div>
-    <br>
+        <br>
+        <div id="userBox"> <!-- Welcome User Box --> <!-- Gifs from Tenor -->
+            <img src="https://media.tenor.com/43WINHsZ4jQAAAAi/ayo-menyanyi.gif" alt="music gif">
+            <p id="welcomeUser">Welcome <%= name %>!</p>
+            <img src="https://media.tenor.com/43WINHsZ4jQAAAAi/ayo-menyanyi.gif" alt="music gif">
+        </div>
+        <br>
 
-    <div class="homeDiv"> <!-- Search box -->
-    <p> Search for a Song </p>
-    <button class="homeBtn" id="homeSearchBtn"> - Search - </button>
-    </div>
-    <br>
+        <div class="homeDiv"> <!-- Search box -->
+            <p> Search for a Song </p>
+            <button class="homeBtn" id="homeSearchBtn"><a class="homeButtons" href="/apiTest"> - Search - </a></button>
+        </div>
+        <br>
 
-    <div class="homeDiv"> <!-- playlist box -->
-    <p> Visit Your Playlists </p>
-    <button class="homeBtn" id="homePlaylistsBtn"> - Visit - </button>
-    </div>
-    <br>
+        <div class="homeDiv"> <!-- playlist box -->
+            <p> Visit Your Playlists </p>
+            <button class="homeBtn" id="homePlaylistsBtn"><a class="homeButtons" href="#"> - Visit - </a></button>
+        </div>
+        <br>
 
-    <div class="homeDiv"> <!-- Logout box -->
-    <p> Switch Accounts </p>
-    <button class="homeBtn" id="homeLogoutBtn"> - Logout - </button>
-    </div>
-    <br>
-    <%- include("partials/footer") %>
+        <div class="homeDiv"> <!-- Logout box -->
+            <p> Switch Accounts </p>
+            <button class="homeBtn" id="homeLogoutBtn"><a class="homeButtons" href="/logout"> - Logout - </a></button>
+        </div>
+        <br>
+        <%- include("partials/footer") %>
 </body>
 </html>
