@@ -13,10 +13,10 @@
 
         <div class="profilePageInfo">
             <span class="profilePagePart">
-                <h3>Create New Playlist</h3>
+                <h3 class="searchDivItem">Create New Playlist</h3>
                 <form action="/create-playlist" method="POST">
-                    <input type="text" name="name" placeholder="Playlist Name" required>
-                    <button type="submit">Create</button>
+                    <div class="searchDivItem"><input type="text" name="name" placeholder="Playlist Name" required></div><br>
+                    <div class="searchDivItem"><button class="searchButton" type="submit">Create</button></div>
                 </form>
             </span>
         </div>
@@ -29,12 +29,14 @@
                     <% } else { %>
                         <ul style="list-style-type: none; padding: 0;">
                             <% for(let playlist of playlists) { %>
+                                <div class="searchDivItem">
                                 <li>
                                     <strong>
                                         <%= playlist.playlistName %>
                                     </strong> -
                                     <a href="/playlist/<%= playlist.playlistId %>">View Songs</a>
                                 </li>
+                                </div>
                                 <% } %>
                         </ul>
                         <% } %>
