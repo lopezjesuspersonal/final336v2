@@ -40,6 +40,24 @@ app.get('/profile', isUserAuthenticated, async (req, res) => {
     res.render('profile.ejs', { userInfo })
 })
 
+app.post('/updateProfile', isUserAuthenticated, async (req, res) => {
+    let firstName = req.body.firstName
+    let lastName = req.body.lastName
+    let email = req.body.email
+    let password = req.body.password
+    let username = req.body.username
+
+    let sql = `UPDATE login
+               SET firstName = ?,
+                   lastName = ?,
+                   email = ?,
+                   password = ?
+               WHERE username = ?`
+    let sqlParams = [firstName, lastName, email, password, username]
+    const [rows] = await pool.query(sql, sqlParams)
+    res.redirect('/profile')
+})
+
 app.get('/apiTest', isUserAuthenticated, (req, res) => {
     res.render('apiTest.ejs');
 });

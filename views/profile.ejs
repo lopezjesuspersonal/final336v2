@@ -5,18 +5,28 @@
     <title>Profile</title>
 </head>
 <body>
-    <h1 id="title"> VYNL </h1> <!-- Title -->
+    <h1 id="title"> VYNL </h1>
     <%- include("partials/testnav.ejs") %>
-    <h2>Welcome <%= userInfo[0].username %></h2>
 
+    <div>
+        <h2>Welcome <%= userInfo[0].username %></h2>
+        <h3><><><> Here you can update your information for your account <><><></h3>
+        <h4>First Name: <%= userInfo[0].firstName %></h4>
+        <h4>Last Name: <%= userInfo[0].lastName %></h4>
+        <h4>Email: <%= userInfo[0].email %></h4>
+    </div>
+
+    <button id="openProfileModal">Update Profile</button>
     <dialog id="profileModal">
-        <h2>Modal</h2>
-        <p>content</p>
-        <button id="closeProfileModal">Close</button>
+        <h1>Update Profile Info</h1> <button id="closeProfileModal">Close</button>
+        <form action="/updateProfile" method="POST">
+            <input type="hidden" name="username" value="<%= userInfo[0].username %>">
+            <span>First Name: <input type="text" name="firstName" value="<%= userInfo[0].firstName %>"></span> <br>
+            <span>Last Name: <input type="text" name="lastName" value="<%= userInfo[0].lastName %>"></span> <br>
+            <span>Email: <input type="email" name="email" value="<%= userInfo[0].email %>"></span> <br>
+            <span>Password: <input type="text" name="password" value="<%= userInfo[0].password %>"></span> <br>
+            <button type="submit">Update</button>
+        </form>
     </dialog>
-
-    <form action="/updateUserInfo">
-        <button>Update Profile</button>
-    </form>
 </body>
 </html>
