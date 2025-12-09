@@ -218,6 +218,27 @@ body {
     border-bottom: 3px solid rgb(0, 0, 0);
 }
 
+#playlistcss {
+    text-align: center;
+    font-size: 3.0em;
+    color: black;
+    font-weight: 850;
+    font-style: italic;
+    margin: 10;
+    text-shadow: 2px 2px 2px white;
+}
+
+#playlistcss2 {
+    text-align: center;
+    font-size: 1.9em;
+    color: black;
+    font-weight: 850;
+    font-style: italic;
+    margin: 10;
+    text-shadow: 2px 2px 2px white;
+}
+
+
 .homeBtn {
     color: white;
     background-image: linear-gradient(black, red);

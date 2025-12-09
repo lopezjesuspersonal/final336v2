@@ -9,12 +9,11 @@
 <body style="text-align: center;">
     <h1 id="title"> VYNL </h1>
     <%- include("partials/testnav.ejs") %>
-        <h1 class="resultsTop">Your Playlists</h1>
-        <br>
+        <h1 id="playlistcss">Your Playlists</h1>
 
         <div class="profilePageInfo">
             <span class="profilePagePart">
-                <h3 class="searchDivItem">Create New Playlist</h3>
+                <h3 id="playlistcss2">Create New Playlist</h3>
                 <form action="/create-playlist" method="POST">
                     <div class="searchDivItem"><input type="text" name="name" placeholder="Playlist Name" required>
                     </div><br>
@@ -22,8 +21,7 @@
                 </form>
             </span>
         </div>
-        <br>
-
+        
         <div class="profilePageInfo">
             <span class="profilePagePart">
                 <% if (playlists.length===0) { %>
