@@ -211,6 +211,44 @@ app.post('/add-to-playlist', isUserAuthenticated, async (req, res) => {
     res.json({ success: true });
 });
 
+
+app.get('/playlists', isUserAuthenticated, async (req, res) => {
+    let userId = req.session.userId;
+    let [rows] = await pool.query(`SELECT * 
+                                   FROM playlists 
+                                   WHERE userId = ?`, [userId]);
+    res.render('playlists', { playlists: rows });
+});
+
+app.post('/create-playlist', isUserAuthenticated, async (req, res) => {
+    let { name } = req.body;
+    let userId = req.session.userId;
+    let sql = `INSERT INTO playlists 
+               (userId, playlistName) 
+               VALUES (?, ?)`;
+    await pool.query(sql, [userId, name]);
+    res.redirect('/playlists');
+});
+
+app.get('/playlist/:id', isUserAuthenticated, async (req, res) => {
+    let playlistId = req.params.id;
+    let userId = req.session.userId;
+    let [playlist] = await pool.query(`SELECT * 
+                                       FROM playlists 
+                                       WHERE playlistId = ? 
+                                       AND userId = ?`, [playlistId, userId]);
+
+    if (playlist.length === 0) {
+        return res.redirect('/playlists');
+    }
+
+    let [songs] = await pool.query(`SELECT * 
+                                   FROM songs 
+                                   WHERE playlistId = ? 
+                                   AND userId = ?`, [playlistId, userId]);
+    res.render('playlistDetails', { playlist: playlist[0], songs: songs });
+});
+
 app.listen(3000, () => {
     console.log("Express server running")
 })
