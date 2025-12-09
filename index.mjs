@@ -34,12 +34,20 @@ const pool = mysql.createPool({
 
 app.get('/profile', isUserAuthenticated, async (req, res) => {
     let username = req.session.username
+    let userId = req.session.userId;
+
     let sql = `SELECT * 
                FROM login
                WHERE username = ?`
     const [userInfo] = await pool.query(sql, [username])
-    
-    res.render('profile.ejs', { userInfo })
+
+    let sqlFavorites = `SELECT * 
+                        FROM songs 
+                        WHERE userId = ? 
+                        AND isFavorite = 1`;
+    const [favorites] = await pool.query(sqlFavorites, [userId]);
+
+    res.render('profile.ejs', { userInfo, favorites })
 })
 
 app.post('/updateProfile', isUserAuthenticated, async (req, res) => {

@@ -15,20 +15,21 @@
     <%- include("partials/testnav.ejs") %>
         <br>
 
-        <div>
+        <div class="profilePageInfo">
+            <span class="profilePagePart">
+                <ul style="list-style-type: none; padding: 0;">
+                    <% for(let song of songs) { %>
+                        <li>
+                            <%= song.songName %> by <%= song.artistName %>
+                        </li>
+                        <% } %>
+                </ul>
 
-            <ul style="list-style-type: none; padding: 0;">
-                <% for(let song of songs) { %>
-                    <li>
-                        <%= song.songName %> by <%= song.artistName %>
-                    </li>
-                    <% } %>
-            </ul>
 
-
-            <br>
-            <a href="/playlists">Back to Playlists</a> |
-            <a href="/apiTest">Browse Songs</a>
+                <br>
+                <a href="/playlists">Back to Playlists</a> |
+                <a href="/apiTest">Browse Songs</a>
+            </span>
         </div>
 
         <%- include("partials/footer") %>

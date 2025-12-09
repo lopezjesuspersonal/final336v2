@@ -11,30 +11,34 @@
     <%- include("partials/testnav.ejs") %>
         <br>
 
-        <div>
-            <h3>Create New Playlist</h3>
-            <form action="/create-playlist" method="POST">
-                <input type="text" name="name" placeholder="Playlist Name" required>
-                <button type="submit">Create</button>
-            </form>
+        <div class="profilePageInfo">
+            <span class="profilePagePart">
+                <h3>Create New Playlist</h3>
+                <form action="/create-playlist" method="POST">
+                    <input type="text" name="name" placeholder="Playlist Name" required>
+                    <button type="submit">Create</button>
+                </form>
+            </span>
         </div>
         <br>
 
-        <div>
-            <% if (playlists.length===0) { %>
-                <p>No playlists yet.</p>
-                <% } else { %>
-                    <ul style="list-style-type: none; padding: 0;">
-                        <% for(let playlist of playlists) { %>
-                            <li>
-                                <strong>
-                                    <%= playlist.playlistName %>
-                                </strong> -
-                                <a href="/playlist/<%= playlist.playlistId %>">View Songs</a>
-                            </li>
-                            <% } %>
-                    </ul>
-                    <% } %>
+        <div class="profilePageInfo">
+            <span class="profilePagePart">
+                <% if (playlists.length===0) { %>
+                    <p>No playlists yet.</p>
+                    <% } else { %>
+                        <ul style="list-style-type: none; padding: 0;">
+                            <% for(let playlist of playlists) { %>
+                                <li>
+                                    <strong>
+                                        <%= playlist.playlistName %>
+                                    </strong> -
+                                    <a href="/playlist/<%= playlist.playlistId %>">View Songs</a>
+                                </li>
+                                <% } %>
+                        </ul>
+                        <% } %>
+            </span>
         </div>
 
         <%- include("partials/footer") %>
