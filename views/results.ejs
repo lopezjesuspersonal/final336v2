@@ -9,8 +9,10 @@
 <body>
     <h1 id="title"> VYNL </h1>
     <%- include("partials/testnav.ejs") %>
+    <div class="resultsTop">
         <h1>Search Results</h1>
-        <a href="/search">Back to Search</a>
+        <a class="homeButtons" href="/search">Back to Search</a>
+    </div>
 
         <div class="results-container">
             <% data.forEach(item=> { %>

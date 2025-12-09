@@ -5,6 +5,15 @@ body {
     color: white;
 }
 
+.resultsTop {
+    text-align: center;
+    font-weight: bolder;
+}
+
+.resultsTop h1 {
+    margin-top: 10px;
+}
+
 .profilePageInfo {
     display: flex;
     flex-direction: column;
