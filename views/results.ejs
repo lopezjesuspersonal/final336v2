@@ -9,57 +9,57 @@
 <body>
     <h1 id="title"> VYNL </h1>
     <%- include("partials/testnav.ejs") %>
-    <h1>Search Results</h1>
-    <a href="/apiTest">Back to Search</a>
+        <h1>Search Results</h1>
+        <a href="/search">Back to Search</a>
 
-    <div class="results-container">
-        <% data.forEach(item=> { %>
-            <div class="result-card">
-                <img src="<%= item.thumb %>" alt="<%= item.title %>">
-                <h3>
-                    <%= item.title %>
-                </h3>
-                <p>Year: <%= item.year %>
-                </p>
+        <div class="results-container">
+            <% data.forEach(item=> { %>
+                <div class="result-card">
+                    <img src="<%= item.thumb %>" alt="<%= item.title %>">
+                    <h3>
+                        <%= item.title %>
+                    </h3>
+                    <p>Year: <%= item.year %>
+                    </p>
 
-                <button onclick="playSong('<%= item.title %>')">Play on YouTube</button>
+                    <button onclick="playSong('<%= item.title %>')">Play on YouTube</button>
 
-                <% let parts=item.title.split(' - ');
+                    <% let parts=item.title.split(' - ');
                    let artist = parts.length > 1 ? parts[0] : ' Unknown'; let song=parts.length> 1 ?
-                    parts.slice(1).join(' - ') : item.title;
-                    %>
+                        parts.slice(1).join(' - ') : item.title;
+                        %>
 
-                    <form action="/add-favorite" method="POST" style="margin-top: 10px;">
-                        <input type="hidden" name="songName" value="<%= song %>">
-                        <input type="hidden" name="artistName" value="<%= artist %>">
-                        <button type="submit">❤️</button>
-                    </form>
+                        <form action="/add-favorite" method="POST" style="margin-top: 10px;">
+                            <input type="hidden" name="songName" value="<%= song %>">
+                            <input type="hidden" name="artistName" value="<%= artist %>">
+                            <button type="submit">❤️</button>
+                        </form>
 
-                    <button onclick="openPlaylistModal('<%= song %>', '<%= artist %>')" style="margin-top: 5px;">
-                        Add to Playlist
-                    </button>
+                        <button onclick="openPlaylistModal('<%= song %>', '<%= artist %>')" style="margin-top: 5px;">
+                            Add to Playlist
+                        </button>
+                </div>
+                <% }); %>
+        </div>
+
+        <div id="playlistModal" class="modal-overlay">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal('playlistModal')">&times;</span>
+                <h2>Select Playlist</h2>
+                <select id="playlistSelect" style="width:100%; margin-bottom:15px; padding:5px;"></select>
+                <button onclick="addToPlaylist()">Add</button>
             </div>
-            <% }); %>
-    </div>
-
-    <div id="playlistModal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('playlistModal')">&times;</span>
-            <h2>Select Playlist</h2>
-            <select id="playlistSelect" style="width:100%; margin-bottom:15px; padding:5px;"></select>
-            <button onclick="addToPlaylist()">Add</button>
         </div>
-    </div>
 
-    <div id="videoModal" class="modal-overlay">
-        <div class="video-modal-content">
-            <button class="video-close-btn" onclick="closeModal('videoModal')">&times;</button>
-            <iframe id="youtubePlayer" style="width:100%; height:100%;" src="" frameborder="0"
-                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div id="videoModal" class="modal-overlay">
+            <div class="video-modal-content">
+                <button class="video-close-btn" onclick="closeModal('videoModal')">&times;</button>
+                <iframe id="youtubePlayer" style="width:100%; height:100%;" src="" frameborder="0"
+                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
         </div>
-    </div>
 
-    <script src="/js/script.js"></script>
+        <script src="/js/script.js"></script>
 </body>
 
 </html>
