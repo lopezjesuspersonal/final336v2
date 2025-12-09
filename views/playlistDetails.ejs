@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("partials/head.ejs") %>
+        <title>
+            <%= playlist.playlistName %>
+        </title>
+</head>
+
+<body style="text-align: center;">
+    <h1>
+        <%= playlist.playlistName %>
+    </h1>
+    <%- include("partials/testnav.ejs") %>
+        <br>
+
+        <div>
+
+            <ul style="list-style-type: none; padding: 0;">
+                <% for(let song of songs) { %>
+                    <li>
+                        <%= song.songName %> by <%= song.artistName %>
+                    </li>
+                    <% } %>
+            </ul>
+
+
+            <br>
+            <a href="/playlists">Back to Playlists</a> |
+            <a href="/apiTest">Browse Songs</a>
+        </div>
+
+        <%- include("partials/footer") %>
+</body>
+
+</html>
