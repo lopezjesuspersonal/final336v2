@@ -9,10 +9,11 @@
 </head>
 
 <body style="text-align: center;">
+    <h1 id="title"> VYNL </h1>
+    <%- include("partials/testnav.ejs") %>
     <h1>
         <%= playlist.playlistName %>
     </h1>
-    <%- include("partials/testnav.ejs") %>
         <br>
 
         <div class="profilePageInfo">
@@ -27,8 +28,8 @@
 
 
                 <br>
-                <a href="/playlists">Back to Playlists</a> |
-                <a href="/apiTest">Browse Songs</a>
+                <a class="homeButtons" href="/playlists">Back to Playlists</a> |
+                <a class="homeButtons" href="/search">Browse Songs</a>
             </span>
         </div>
 
