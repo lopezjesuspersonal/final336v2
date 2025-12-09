@@ -7,23 +7,24 @@
 <body class="text-center loginBody">
     <div class="login-box">
         <form method="POST" action="/register">
+            <h1 id="registerWarning"></h1>
             <h1 class="m-3 loginText"> Log in to Vynl </h1>
             <h3 class="loginText">Username:</h3>
             <div class="loginDiv mb-4">
-                <input type="text" name="username">
+                <input id="registerUsername" type="text" name="username">
                 <span class="bi bi-person loginIcon"></span>
             </div>
             <h3 class="loginText">Password:</h3>
             <div class="loginDiv mb-4">
-                <input type="password" id="pwd1" name="password">
+                <input id="registerPassword" type="password" id="pwd1" name="password">
                 <span class="bi bi-eye loginIcon iconEye" data-target="#pwd1"></span>
             </div>
             <h3 class="loginText">Retype Password:</h3>
             <div class="loginDiv mb-4">
-                <input type="password" id="pwd2" name="passwordCheck">
+                <input id="registerCheckPassword" type="password" id="pwd2" name="passwordCheck">
                 <span class="bi bi-eye loginIcon iconEye" data-target="#pwd2"></span>
             </div>
-            <button type="submit" class="btn btn-custom mb-3">Register</button>
+            <button id="registerBtn" type="submit" class="btn btn-custom mb-3">Register</button>
         </form>
         <form method="GET" action="/login">
             <button type="submit" class="btn btn-outline-primary btn-outline-custom">Return to Sign In</button>
