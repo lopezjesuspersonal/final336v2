@@ -68,8 +68,8 @@ app.post('/updateProfile', isUserAuthenticated, async (req, res) => {
     res.redirect('/profile')
 })
 
-app.get('/apiTest', isUserAuthenticated, (req, res) => {
-    res.render('apiTest.ejs');
+app.get('/search', isUserAuthenticated, (req, res) => {
+    res.render('search.ejs');
 });
 
 app.get('/search-test', async (req, res) => {
@@ -156,7 +156,7 @@ app.post('/add-favorite', isUserAuthenticated, async (req, res) => {
                (userId, songName, artistName, isFavorite) 
                VALUES (?, ?, ?, 1)`;
     await pool.query(sql, [userId, songName, artistName]);
-    res.redirect('/apiTest');
+    res.redirect('/search');
 
 });
 
