@@ -8,25 +8,33 @@
     <h1 id="title"> VYNL </h1>
     <%- include("partials/testnav.ejs") %>
 
-    <div>
-        <h2>Welcome <%= userInfo[0].username %></h2>
-        <h3><><><> Here you can update your information for your account <><><></h3>
-        <h4>First Name: <%= userInfo[0].firstName %></h4>
-        <h4>Last Name: <%= userInfo[0].lastName %></h4>
-        <h4>Email: <%= userInfo[0].email %></h4>
+    <div class="profilePageInfo">
+        <span class="profilePagePart">
+            <h2>Welcome to your profile page <%= userInfo[0].username %></h2>
+            <h3>Here you can update your information for your account</h3>
+        </span>
+        <span class="profilePagePart">
+            <h4>First Name: <%= userInfo[0].firstName %></h4>
+            <h4>Last Name: <%= userInfo[0].lastName %></h4>
+            <h4>Email: <%= userInfo[0].email %></h4>
+        </span>
+        <button class="profileBtns" id="openProfileModal">Update Profile</button>
     </div>
 
-    <button id="openProfileModal">Update Profile</button>
     <dialog id="profileModal">
-        <h1>Update Profile Info</h1> <button id="closeProfileModal">Close</button>
+        <h1 id="profileModalTitle">Update Profile Info</h1>
         <form action="/updateProfile" method="POST">
-            <input type="hidden" name="username" value="<%= userInfo[0].username %>">
-            <span>First Name: <input type="text" name="firstName" value="<%= userInfo[0].firstName %>"></span> <br>
-            <span>Last Name: <input type="text" name="lastName" value="<%= userInfo[0].lastName %>"></span> <br>
-            <span>Email: <input type="email" name="email" value="<%= userInfo[0].email %>"></span> <br>
-            <span>Password: <input type="text" name="password" value="<%= userInfo[0].password %>"></span> <br>
-            <button type="submit">Update</button>
+            <div>
+                <input type="hidden" name="username" value="<%= userInfo[0].username %>">
+                <div class="profileModalEntry">First Name: <input type="text" name="firstName" value="<%= userInfo[0].firstName %>"></div> <br>
+                <div class="profileModalEntry">Last Name: <input type="text" name="lastName" value="<%= userInfo[0].lastName %>"></div> <br>
+                <div class="profileModalEntry">Email: <input type="email" name="email" value="<%= userInfo[0].email %>"></div> <br>
+                <div class="profileModalEntry">Password: <input type="text" name="password" value="<%= userInfo[0].password %>"></div> <br>
+                <button class="profileBtns" type="submit">Update</button> <br>
+                <button class="profileBtns" id="closeProfileModal">Close</button>
+            </div>
         </form>
     </dialog>
+
 </body>
 </html>
