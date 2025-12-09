@@ -3,7 +3,7 @@
 
 <head>
     <%- include("partials/head.ejs") %>
-    <title>Search Results</title>
+        <title>Search Results</title>
 </head>
 
 <body>
@@ -12,19 +12,20 @@
     <h1>Search Results</h1>
     <a href="/apiTest">Back to Search</a>
 
-    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div class="results-container">
         <% data.forEach(item=> { %>
-            <div style="width: 200px; border: 1px solid white;">
-                <img src="<%= item.thumb %>" style="width: 100%; height: auto;">
+            <div class="result-card">
+                <img src="<%= item.thumb %>" alt="<%= item.title %>">
                 <h3>
                     <%= item.title %>
                 </h3>
                 <p>Year: <%= item.year %>
                 </p>
+
                 <button onclick="playSong('<%= item.title %>')">Play on YouTube</button>
 
                 <% let parts=item.title.split(' - ');
-                    let artist = parts.length > 1 ? parts[0] : ' Unknown'; let song=parts.length> 1 ?
+                   let artist = parts.length > 1 ? parts[0] : ' Unknown'; let song=parts.length> 1 ?
                     parts.slice(1).join(' - ') : item.title;
                     %>
 
@@ -33,43 +34,32 @@
                         <input type="hidden" name="artistName" value="<%= artist %>">
                         <button type="submit">❤️</button>
                     </form>
+
+                    <button onclick="openPlaylistModal('<%= song %>', '<%= artist %>')" style="margin-top: 5px;">
+                        Add to Playlist
+                    </button>
             </div>
             <% }); %>
     </div>
 
-    <div id="videoModal"
-        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.9); z-index:1000; justify-content:center; align-items:center;">
-        <div style="position:relative; width:80%; max-width:900px; aspect-ratio:16/9;">
-            <button onclick="closeModal()"
-                style="position:absolute; top:-40px; right:0; color:white; background:none; border:none; font-size:30px; cursor:pointer;">&times;</button>
+    <div id="playlistModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('playlistModal')">&times;</span>
+            <h2>Select Playlist</h2>
+            <select id="playlistSelect" style="width:100%; margin-bottom:15px; padding:5px;"></select>
+            <button onclick="addToPlaylist()">Add</button>
+        </div>
+    </div>
+
+    <div id="videoModal" class="modal-overlay">
+        <div class="video-modal-content">
+            <button class="video-close-btn" onclick="closeModal('videoModal')">&times;</button>
             <iframe id="youtubePlayer" style="width:100%; height:100%;" src="" frameborder="0"
                 allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
 
-    <script>
-        const modal = document.getElementById('videoModal');
-        const player = document.getElementById('youtubePlayer');
-
-        async function playSong(title) {
-            const response = await fetch(`/youtube-search?q=${title}`);
-            const data = await response.json();
-
-            player.src = `https://www.youtube.com/embed/${data.videoId}?autoplay=1`;
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            modal.style.display = 'none';
-            player.src = '';
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                closeModal();
-            }
-        }
-    </script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>

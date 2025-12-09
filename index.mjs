@@ -20,6 +20,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 //for Express to get values using the POST method
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //setting up database connection pool
 const pool = mysql.createPool({
     host: process.env.HOST,
@@ -129,6 +131,8 @@ app.post('/login', async (req, res) => {
     if (found && rows[0].password == password) {
         req.session.isUserAuthenticated = true
         req.session.username = rows[0].username
+        req.session.name = rows[0].username
+        req.session.userId = rows[0].userId; // Set user    Id in session
         res.redirect('/')
     } else {
         res.redirect('/login')
@@ -140,10 +144,11 @@ app.post('/add-favorite', isUserAuthenticated, async (req, res) => {
     let { songName, artistName } = req.body;
     let userId = req.session.userId;
 
-    let sql = `INSERT INTO songs (userId, songName, artistName, isFavorite) 
+    let sql = `INSERT INTO songs 
+               (userId, songName, artistName, isFavorite) 
                VALUES (?, ?, ?, 1)`;
     await pool.query(sql, [userId, songName, artistName]);
-    res.render('results.ejs');
+    res.redirect('/apiTest');
 
 });
 
@@ -178,25 +183,34 @@ function isUserAuthenticated(req, res, next) {
 }
 
 app.get('/youtube-search', async (req, res) => {
-    const query = req.query.q;
-    const key = process.env.YOUTUBE_API_KEY;
+    let query = req.query.q;
+    let key = process.env.YOUTUBE_API_KEY;
 
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&maxResults=1&type=video&key=${key}`;
+    let url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&maxResults=1&type=video&key=${key}`;
     let response = await fetch(url);
     let data = await response.json();
     res.json({ videoId: data.items[0].id.videoId });
 });
 
-app.get("/dbTest", async (req, res) => {
-    try {
-        const [rows] = await pool.query("SELECT CURDATE()");
-        res.send(rows);
-    } catch (err) {
-        console.error("Database error:", err);
-        res.status(500).send("Database error!");
-    }
+app.get('/api/playlists', isUserAuthenticated, async (req, res) => {
+    let userId = req.session.userId;
+    let [rows] = await pool.query(`SELECT * 
+                                     FROM playlists 
+                                     WHERE userId = ?`, [userId]);
+    res.json(rows);
+});
 
-});//dbTest
+app.post('/add-to-playlist', isUserAuthenticated, async (req, res) => {
+    let { playlistId, songName, artistName } = req.body;
+
+    let userId = req.session.userId;
+    let sql = `INSERT INTO songs 
+               (userId, playlistId, songName, artistName, isFavorite) 
+               VALUES (?, ?, ?, ?, 0)`;
+    await pool.query(sql, [userId, playlistId, songName, artistName]);
+    res.json({ success: true });
+});
+
 app.listen(3000, () => {
     console.log("Express server running")
 })
