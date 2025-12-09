@@ -156,7 +156,7 @@ app.post('/add-favorite', isUserAuthenticated, async (req, res) => {
                (userId, songName, artistName, isFavorite) 
                VALUES (?, ?, ?, 1)`;
     await pool.query(sql, [userId, songName, artistName]);
-    res.redirect('/search');
+    res.json({ success: true });
 
 });
 

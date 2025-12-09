@@ -52,6 +52,8 @@ async function openPlaylistModal(songName, artistName) {
     currentSong = { songName, artistName };
     let modal = document.querySelector('#playlistModal');
     let select = document.querySelector('#playlistSelect');
+    let messageBox = document.querySelector('#playlistMessage');
+    if (messageBox) messageBox.textContent = '';
 
     select.innerHTML = '<option>Loading...</option>';
     modal.style.display = 'flex';
@@ -79,22 +81,50 @@ async function openPlaylistModal(songName, artistName) {
 
 async function addToPlaylist() {
     let playlistId = document.querySelector('#playlistSelect').value;
-    if (!playlistId) return alert('Please select a playlist');
+    let messageBox = document.querySelector('#playlistMessage');
 
-    let response = await fetch('/add-to-playlist', {
+    if (!playlistId) {
+        messageBox.style.color = 'red';
+        messageBox.textContent = 'Please create a playlist on the profile page first!';
+        return;
+    }
+
+    try {
+        let response = await fetch('/add-to-playlist', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                playlistId,
+                songName: currentSong.songName,
+                artistName: currentSong.artistName
+            })
+        });
+
+        let result = await response.json();
+
+        if (result.success) {
+            messageBox.style.color = 'green';
+            messageBox.textContent = 'Song added to playlist!';
+        } else {
+            messageBox.style.color = 'red';
+            messageBox.textContent = result.message || 'Failed to add song';
+        }
+    } catch (error) {
+        console.error(error);
+        messageBox.style.color = 'red';
+        messageBox.textContent = 'Error connecting to server';
+    }
+}
+
+async function addToFavorites(songName, artistName, btn) {
+    let response = await fetch('/add-favorite', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            playlistId,
-            songName: currentSong.songName,
-            artistName: currentSong.artistName
-        })
+        body: JSON.stringify({ songName, artistName })
     });
     let result = await response.json();
     if (result.success) {
-        alert('Song added!');
-        closeModal('playlistModal');
-    } else {
-        alert('Failed to add song.');
+        btn.innerHTML = '✅';
+        btn.disabled = true;
     }
 }
